@@ -3,7 +3,7 @@ const refs = {
   switcher: document.querySelector(`#theme-switch-toggle`),
   body: document.body
 }
-const {switcher, body} = refs;
+const { switcher, body } = refs;
 
 const Theme = {
   LIGHT: 'light-theme',
@@ -11,24 +11,25 @@ const Theme = {
 };
 const { LIGHT, DARK } = Theme;
 
-body.classList.add(localStorage.getItem(`bodyClassCurrent`))
+localStorage.getItem(`bodyClassCurrent`) === DARK
+  ? (switcher.checked = true)
+  : (switcher.checked = false);
 
-localStorage.getItem(`bodyClassCurrent`) === DARK ?
-  switcher.checked = true
-  : switcher.checked = false;  
+switcher.checked ? body.classList.add(DARK) : body.classList.add(LIGHT);
 
 switcher.addEventListener(`change`, onChangeHandler);
 
 function onChangeHandler(event) {
   body.classList.toggle(LIGHT)
   body.classList.toggle(DARK)
-  getClassData();
+  setClassData();
 }
 
-function getClassData () {
+function setClassData () {
   localStorage.setItem(`bodyClassCurrent`, body.classList)
 }
 
+setClassData();
 
 
 
